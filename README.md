@@ -755,64 +755,6 @@ The appointment is displayed in the appointment list and the system can provide 
 
 ---
 
-# 🔮 Future Enhancements
-
-Possible improvements include:
-
-- 👤 User authentication
-- 🗄️ PostgreSQL / Cloud SQL database
-- 📅 Google Calendar integration
-- 📱 SMS / WhatsApp notifications
-- 🔐 Role-based access
-- 🌍 Multi-language voice support
-- 📊 Admin dashboard
-- 📈 Appointment analytics
-- 🔄 Recurring appointments
-- 🏢 Multiple staff calendars
-- 🧑‍💼 Business working hours
-- 🚫 Appointment conflict detection
-- 🧠 Conversational memory
-- 🔄 CI/CD deployment using GitHub Actions
-
----
-
-# 📸 Screenshots
-
-Recommended repository structure:
-
-```text
-screenshots/
-├── voice-input.png
-├── ai-understanding.png
-├── appointment-status.png
-├── ai-voice-reply.png
-└── appointments-list.png
-```
-
-Then add:
-
-```markdown
-## Voice Appointment
-
-![Voice Appointment](screenshots/voice-input.png)
-
-## AI Understanding
-
-![AI Understanding](screenshots/ai-understanding.png)
-
-## Appointment Status
-
-![Appointment Status](screenshots/appointment-status.png)
-
-## AI Voice Reply
-
-![AI Voice Reply](screenshots/ai-voice-reply.png)
-
-## Appointment List
-
-![Appointment List](screenshots/appointments-list.png)
-```
-
 ---
 
 # 📌 Project Highlights
@@ -866,14 +808,6 @@ The project demonstrates practical implementation of:
 
 ---
 
-# 👨‍💻 Author
+# 👨‍💻 Developed by
 
-**Sugumar R**
-
-AI / Data Science / Generative AI Project
-
----
-
-## ⭐ If you find this project useful
-
-Consider giving the repository a ⭐ on GitHub.
+**R. Sugumar, M.B.A.,**
