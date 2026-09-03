@@ -82,7 +82,7 @@ LIST
 
 ---
 
-# 🚀 Key Features
+#  Key Features
 
 ## 🎙️ 1. Voice Input
 
@@ -472,27 +472,6 @@ The project source code is maintained in GitHub and the deployed application run
                   👤 User
 ```
 
-### GitHub workflow
-
-```text
-1. Develop application locally
-          ↓
-2. Test application
-          ↓
-3. Update source files
-          ↓
-4. git add .
-          ↓
-5. git commit
-          ↓
-6. git push
-          ↓
-7. GitHub repository updated
-          ↓
-8. Deploy updated application to Cloud Run
-          ↓
-9. Test live application
-```
 
 ### Current GitHub repository structure
 
@@ -631,38 +610,6 @@ venv/
 
 ---
 
-# ▶️ Run Locally
-
-## 1. Clone the repository
-
-```bash
-git clone https://github.com/sugumarranganathan/voice-appointment-chatbot.git
-cd voice-appointment-chatbot
-```
-
-## 2. Create a virtual environment
-
-```bash
-python -m venv venv
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-## 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
 
 ## 4. Configure environment variables
 
@@ -674,15 +621,6 @@ EMAIL_ADDRESS=your_email@gmail.com
 EMAIL_PASSWORD=your_email_app_password
 ```
 
-## 5. Start the application
-
-```bash
-python app.py
-```
-
-Open the local Gradio URL shown by the application.
-
----
 
 # 🧪 Example End-to-End Interaction
 
@@ -751,13 +689,12 @@ The appointment is displayed in the appointment list and the system can provide 
 - Improves customer experience
 - Provides conversational AI interaction
 - Can be deployed as a cloud application
-- Provides a foundation for future calendar and notification integrations
 
 ---
 
 ---
 
-# 📌 Project Highlights
+#  Project Highlights
 
 This project demonstrates an end-to-end **AI + Voice + Automation + Cloud** application.
 
