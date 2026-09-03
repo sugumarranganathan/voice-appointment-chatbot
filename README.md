@@ -18,7 +18,7 @@ https://github.com/sugumarranganathan/voice-appointment-chatbot
 
 ---
 
-# 📌 Problem Statement
+# Problem Statement
 
 Traditional appointment scheduling systems often require users to manually:
 
