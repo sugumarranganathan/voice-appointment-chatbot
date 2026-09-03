@@ -2,90 +2,123 @@
 
 ## AI-Powered Appointment Scheduling System
 
-A voice-enabled AI appointment scheduling application that allows users to manage appointments using natural language and voice commands.
+A voice-enabled AI appointment scheduling application that allows users to manage appointments using natural-language voice commands.
 
-The system converts a user's speech into text, understands the appointment request using an LLM, validates the extracted information, performs the requested appointment operation, sends email confirmations, generates an AI voice response, and supports automatic appointment reminders.
+The system converts speech into text, understands the request using an LLM, extracts structured appointment information, validates the request, performs the appointment operation, provides an AI voice response, and supports email confirmation and appointment reminders.
 
 ### 🌐 Live Demo
 
 **Google Cloud Run:**  
 https://voice-appointment-chatbot-6zrnqgkk7q-el.a.run.app
 
----
+### 📦 GitHub Repository
 
-## 📌 Problem Statement
-
-Traditional appointment scheduling systems usually require users to:
-
-- Open a booking website or application
-- Manually enter their name
-- Select a date and time
-- Enter the purpose of the appointment
-- Provide an email address
-- Repeat the process when cancelling or rescheduling
-- Manually check their appointments
-- Remember upcoming appointments themselves
-
-This process can be time-consuming and inconvenient, especially when users prefer speaking instead of typing.
-
-### The main problem
-
-**How can we build an AI-powered appointment system that understands natural human voice requests and automatically handles booking, cancellation, rescheduling, appointment listing, email confirmation, voice responses, and reminders?**
+**Repository:**  
+https://github.com/sugumarranganathan/voice-appointment-chatbot
 
 ---
 
-## 💡 Solution
+# 📌 Problem Statement
+
+Traditional appointment scheduling systems often require users to manually:
+
+- Open a booking application
+- Enter their name
+- Select a date
+- Select a time
+- Enter the appointment purpose
+- Enter an email address
+- Search for an existing appointment before cancelling
+- Manually change details when rescheduling
+- Check their appointments repeatedly
+- Remember upcoming appointments
+
+This can be time-consuming and inconvenient, particularly for users who prefer speaking rather than typing.
+
+### The problem
+
+**How can we build an AI-powered appointment scheduling system that understands natural human voice requests and automatically handles booking, cancellation, rescheduling, appointment listing, confirmation, voice responses, and reminders?**
+
+---
+
+# 💡 Solution
 
 The **Voice Appointment Chatbot** provides a conversational, voice-first solution.
 
-The user simply speaks a request such as:
+A user can simply say:
 
 > "Book an appointment for Anusha tomorrow at 5 PM."
 
-The application:
+The application processes the request through the following pipeline:
 
-1. 🎙️ Records the user's voice
-2. 📝 Converts speech to text using Whisper
-3. 🧠 Uses an LLM to understand the request
-4. 📋 Converts the request into structured appointment JSON
-5. ✅ Validates the required fields and date/time formats
-6. 📅 Performs the requested appointment operation
-7. 📧 Sends an email confirmation when applicable
-8. 🔊 Generates an AI voice response
-9. ⏰ Supports appointment reminders
+```text
+🎙️ Voice Input
+      ↓
+📝 Speech-to-Text
+      ↓
+🧠 AI Understanding
+      ↓
+📋 Structured Appointment JSON
+      ↓
+✅ Validation
+      ↓
+📅 Appointment Operation
+      ↓
+📧 Email Confirmation
+      ↓
+🔊 AI Voice Reply
+      ↓
+⏰ Appointment Reminder
+```
 
-The chatbot supports four primary appointment intents:
+The system supports four main appointment operations:
 
-- `book`
-- `cancel`
-- `reschedule`
-- `list`
+```text
+BOOK
+CANCEL
+RESCHEDULE
+LIST
+```
 
 ---
 
-## 🚀 Key Features
+# 🚀 Key Features
 
-### 🎙️ Voice Input
-Users can record appointment requests directly through the browser microphone.
+## 🎙️ 1. Voice Input
 
-### 📝 Speech-to-Text
-Voice input is transcribed into text using **Whisper**.
+Users can record an appointment request directly through the browser microphone.
 
-### 🧠 AI Understanding
-The application uses **Groq + GPT-OSS-20B** to understand natural-language appointment requests.
+Example:
 
-### 📅 Appointment Management
+> "Show me all appointments."
 
-| Operation | Description |
-|---|---|
-| Book | Create a new appointment |
-| Cancel | Cancel an existing appointment |
-| Reschedule | Change an existing appointment |
-| List | Display booked appointments |
+---
 
-### 📋 Structured Appointment Data
+## 📝 2. Speech-to-Text
 
-The AI converts natural language into structured JSON:
+The recorded voice is converted into text using **Whisper**.
+
+```text
+User Speech
+    ↓
+Whisper
+    ↓
+Text Transcription
+```
+
+---
+
+## 🧠 3. AI Understanding
+
+The transcribed request is sent to **Groq** using **GPT-OSS-20B** to understand the user's intent and extract appointment information.
+
+The model converts natural language into a predictable JSON structure.
+
+---
+
+## 📋 4. Structured Appointment JSON
+
+Example:
 
 ```json
 {
@@ -99,166 +132,7 @@ The AI converts natural language into structured JSON:
 }
 ```
 
-### 📧 Email Confirmation
-
-When an email address is available, the application can use it for appointment confirmation.
-
-If an email address was not included in the voice request, the interface provides a **Complete Appointment Details** section where the user can enter an email address before completing the booking.
-
-### 🔊 AI Voice Reply
-
-After processing the request, the chatbot generates a spoken response so the user does not need to read the result.
-
-### ⏰ Automatic Reminders
-
-Appointments support reminders such as:
-
-> 15 minutes before the appointment
-
-The appointment status also displays whether the reminder has been sent.
-
-### ☁️ Cloud Deployment
-
-The application is deployed on **Google Cloud Run**, providing a publicly accessible web application.
-
----
-
-# 🏗️ System Architecture
-
-```text
-                    ┌──────────────────────┐
-                    │       User           │
-                    │  Natural Voice Input │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Browser Microphone   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │      Whisper         │
-                    │  Speech-to-Text      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │     Groq API         │
-                    │    GPT-OSS-20B       │
-                    │   AI Understanding   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ JSON Appointment     │
-                    │       Schema         │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │      Validation      │
-                    │ Name / Date / Time   │
-                    │ Intent / Email       │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-              ┌────────────────┴────────────────┐
-              │                                 │
-              ▼                                 ▼
-     ┌──────────────────┐             ┌──────────────────┐
-     │ Appointment      │             │ Email / Reminder │
-     │ Operations       │             │ Processing       │
-     │                  │             │                  │
-     │ Book             │             │ Confirmation     │
-     │ Cancel           │             │ Reminder         │
-     │ Reschedule       │             │                  │
-     │ List             │             │                  │
-     └─────────┬────────┘             └──────────────────┘
-               │
-               ▼
-     ┌──────────────────────┐
-     │    AI Voice Reply    │
-     │  Text-to-Speech      │
-     └──────────┬───────────┘
-                │
-                ▼
-        ┌───────────────┐
-        │     User      │
-        └───────────────┘
-```
-
----
-
-# 🔄 Application Workflow
-
-```text
-PHASE 1 — Requirements
-        ↓
-Define BOOK / CANCEL / RESCHEDULE / LIST
-        ↓
-Define JSON Schema
-        ↓
-Define Date / Time Rules
-
-PHASE 2 — Groq Setup
-        ↓
-Configure API Key
-        ↓
-Initialize Groq Client
-
-PHASE 3 — Speech-to-Text
-        ↓
-Browser Microphone
-        ↓
-Whisper
-        ↓
-Transcription
-
-PHASE 4 — AI Understanding
-        ↓
-GPT-OSS-20B
-        ↓
-Intent Detection
-        ↓
-Appointment JSON
-
-PHASE 5 — Validation
-        ↓
-Name
-        ↓
-Date
-        ↓
-Time
-        ↓
-Email
-        ↓
-Intent
-
-PHASE 6 — Appointment Operation
-        ↓
-Book / Cancel / Reschedule / List
-
-PHASE 7 — Communication
-        ↓
-Email Confirmation
-        ↓
-AI Voice Reply
-
-PHASE 8 — Reminder
-        ↓
-Scheduled Reminder
-        ↓
-Reminder Status
-```
-
----
-
-# 🧠 AI Appointment Understanding
-
-The AI is instructed to return a predictable JSON structure instead of free-form text.
-
-## Supported Intent Values
+### Supported intents
 
 ```text
 book
@@ -267,7 +141,7 @@ reschedule
 list
 ```
 
-## Date Format
+### Date format
 
 ```text
 DD-MM-YYYY
@@ -279,7 +153,7 @@ Example:
 04-09-2026
 ```
 
-## Time Format
+### Time format
 
 ```text
 HH:MM
@@ -291,79 +165,41 @@ Example:
 17:00
 ```
 
-## Relative Date Rules
+### Relative date handling
 
-The AI understands common natural-language date expressions.
-
-Examples:
+The system supports natural expressions such as:
 
 ```text
 today
 tomorrow
 ```
 
-- **today** → use today's date
-- **tomorrow** → calculate tomorrow's date based on the current date
+Rules:
+
+- `today` → use the current date
+- `tomorrow` → calculate the next date based on the current date
 
 ---
 
-# 🧪 Example Voice Requests
+# 📅 Appointment Operations
 
-### 1. Book an Appointment
+## Book
 
-**User:**
+Example:
 
 > "Book an appointment for Anusha tomorrow at 5 PM for a consultation."
 
-**AI Output:**
-
-```json
-{
-  "intent": "book",
-  "appointment_id": "",
-  "name": "Anusha",
-  "appointment_date": "04-09-2026",
-  "appointment_time": "17:00",
-  "purpose": "Consultation",
-  "email": ""
-}
-```
-
-If the email was not provided, the application can request it through the **Complete Appointment Details** section.
+The system extracts the appointment information, validates it, and creates the appointment.
 
 ---
 
-### 2. List Appointments
+## Cancel
 
-**User:**
-
-> "Show me all appointments."
-
-**AI Output:**
-
-```json
-{
-  "intent": "list",
-  "appointment_id": "",
-  "name": "",
-  "appointment_date": "",
-  "appointment_time": "",
-  "purpose": "",
-  "email": ""
-}
-```
-
-The application then displays the booked appointments.
-
----
-
-### 3. Cancel an Appointment
-
-**User:**
+Example:
 
 > "Cancel appointment number 3."
 
-The AI identifies:
+The AI identifies the cancellation intent and appointment ID.
 
 ```json
 {
@@ -372,19 +208,17 @@ The AI identifies:
 }
 ```
 
-The application then processes the cancellation.
-
 ---
 
-### 4. Reschedule an Appointment
+## Reschedule
 
-**User:**
+Example:
 
 > "Reschedule appointment number 2 to September 21 at 2:30 PM."
 
-The application updates the appointment date and time.
+The system updates the appointment.
 
-Example:
+Example result:
 
 ```text
 Appointment ID : 2
@@ -394,9 +228,323 @@ Time           : 14:30
 
 ---
 
+## List
+
+Example:
+
+> "Show me all appointments."
+
+The system retrieves and displays the available appointments.
+
+Example:
+
+```text
+Appointment ID : 2
+Name           : Reschedule Test
+Date           : 21-09-2026
+Time           : 14:30
+Purpose        : Reschedule Test
+Email          : dailyscheduletest@gmail.com
+Reminder       : 15 minutes before
+Reminder Sent  : No
+```
+
+---
+
+# 📧 Email Confirmation
+
+The application supports email confirmation for appointments.
+
+If an email address is not included in the voice request, the interface provides a **Complete Appointment Details** section where the user can enter an email address before completing the booking.
+
+Example flow:
+
+```text
+Voice Request
+     ↓
+Email provided?
+   ↙       ↘
+ Yes        No
+ ↓           ↓
+Continue   Enter email
+   ↘       ↙
+    ↓
+Complete Booking
+    ↓
+Email Confirmation
+```
+
+> **Note:** SMTP (Simple Mail Transfer Protocol) is the standard mechanism used by applications to send email through an email server. The actual email configuration should be kept in environment variables or cloud secrets.
+
+---
+
+# 🔊 AI Voice Reply
+
+After processing the appointment request, the chatbot generates an AI voice response.
+
+Example:
+
+> "Your appointment has been successfully rescheduled to September 21 at 2:30 PM."
+
+This provides a conversational experience without requiring the user to read the result.
+
+---
+
+# ⏰ Automatic Reminders
+
+Appointments can contain reminder information such as:
+
+```text
+Reminder       : 15 minutes before
+Reminder Sent  : No
+```
+
+The application can use this information to support automated appointment reminders.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │        USER          │
+                    │  Voice Appointment   │
+                    │       Request        │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Browser Microphone   │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       Whisper        │
+                    │   Speech-to-Text     │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       Groq API       │
+                    │     GPT-OSS-20B      │
+                    │  AI Understanding    │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Structured JSON      │
+                    │ Appointment Data     │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │     Validation       │
+                    │ Name / Date / Time   │
+                    │ Intent / Email       │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+              ┌────────────────┴────────────────┐
+              │                                 │
+              ▼                                 ▼
+     ┌──────────────────┐             ┌──────────────────┐
+     │ Appointment      │             │ Communication    │
+     │ Operations       │             │                  │
+     │                  │             │ Email            │
+     │ Book             │             │ Voice Reply      │
+     │ Cancel           │             │ Reminder         │
+     │ Reschedule       │             │                  │
+     │ List             │             │                  │
+     └─────────┬────────┘             └──────────────────┘
+               │
+               ▼
+        ┌───────────────┐
+        │     USER      │
+        │ Final Result  │
+        └───────────────┘
+```
+
+---
+
+# 🔄 End-to-End Application Workflow
+
+```text
+PHASE 1 — REQUIREMENTS
+        ↓
+Define BOOK / CANCEL / RESCHEDULE / LIST
+        ↓
+Define JSON Schema
+        ↓
+Define Date & Time Rules
+        ↓
+PHASE 2 — GROQ SETUP
+        ↓
+Configure Groq API Key
+        ↓
+Initialize Groq Client
+        ↓
+PHASE 3 — SPEECH-TO-TEXT
+        ↓
+Browser Microphone
+        ↓
+Whisper
+        ↓
+Transcription
+        ↓
+PHASE 4 — AI UNDERSTANDING
+        ↓
+GPT-OSS-20B
+        ↓
+Intent Detection
+        ↓
+Appointment JSON
+        ↓
+PHASE 5 — VALIDATION
+        ↓
+Name
+        ↓
+Date
+        ↓
+Time
+        ↓
+Email
+        ↓
+Intent
+        ↓
+PHASE 6 — APPOINTMENT OPERATION
+        ↓
+Book / Cancel / Reschedule / List
+        ↓
+PHASE 7 — COMMUNICATION
+        ↓
+Email Confirmation
+        ↓
+AI Voice Reply
+        ↓
+PHASE 8 — REMINDER
+        ↓
+Scheduled Reminder
+        ↓
+Reminder Status
+```
+
+---
+
+# 🐙 GitHub Repository Workflow
+
+The project source code is maintained in GitHub and the deployed application runs on Google Cloud Run.
+
+```text
+                 👨‍💻 Developer
+                      │
+                      ▼
+               Local Project
+                      │
+             git add / commit
+                      │
+                      ▼
+                 🐙 GitHub
+                      │
+                      │
+             Source Code Repository
+                      │
+                      ▼
+              ┌─────────────────┐
+              │ Project Files   │
+              │                 │
+              │ app.py          │
+              │ app_source.py   │
+              │ Dockerfile      │
+              │ requirements.txt│
+              │ README.md       │
+              └────────┬────────┘
+                       │
+                       ▼
+              ☁️ Google Cloud
+                       │
+                       ▼
+                 Cloud Run
+                       │
+                       ▼
+              🌐 Live Web App
+                       │
+                       ▼
+                  👤 User
+```
+
+### GitHub workflow
+
+```text
+1. Develop application locally
+          ↓
+2. Test application
+          ↓
+3. Update source files
+          ↓
+4. git add .
+          ↓
+5. git commit
+          ↓
+6. git push
+          ↓
+7. GitHub repository updated
+          ↓
+8. Deploy updated application to Cloud Run
+          ↓
+9. Test live application
+```
+
+### Current GitHub repository structure
+
+Based on the project repository:
+
+```text
+voice-appointment-chatbot/
+│
+├── Dockerfile
+├── README.md
+├── app.py
+├── app_source.py
+└── requirements.txt
+```
+
+---
+
+# ☁️ Google Cloud Run Deployment Workflow
+
+The application is containerized using Docker and deployed to Google Cloud Run.
+
+```text
+Source Code
+    ↓
+Dockerfile
+    ↓
+Docker Build
+    ↓
+Container Image
+    ↓
+Google Cloud
+    ↓
+Cloud Run Service
+    ↓
+Public HTTPS URL
+```
+
+### Live deployment
+
+```text
+Google Cloud Run
+       ↓
+voice-appointment-chatbot
+       ↓
+https://voice-appointment-chatbot-6zrnqgkk7q-el.a.run.app
+```
+
+---
+
 # 🖥️ User Interface
 
-The application provides a simple voice-based interface containing:
+The application provides:
 
 - 🎙️ Voice recording component
 - 🟠 Process Voice button
@@ -408,7 +556,21 @@ The application provides a simple voice-based interface containing:
 - 📧 Complete Appointment Details section
 - 📋 Appointments section
 
-The interface allows the user to see both the original transcription and the structured AI interpretation before viewing the final appointment status.
+The UI makes it possible to see:
+
+```text
+Voice Recording
+      ↓
+Transcription
+      ↓
+AI Understanding
+      ↓
+Appointment Status
+      ↓
+AI Voice Reply
+      ↓
+Appointment List
+```
 
 ---
 
@@ -416,53 +578,34 @@ The interface allows the user to see both the original transcription and the str
 
 | Technology | Purpose |
 |---|---|
-| Python | Backend application |
+| Python | Application/backend development |
 | Gradio | Web-based user interface |
-| Groq | Fast LLM inference |
+| Groq API | LLM inference |
 | GPT-OSS-20B | Natural-language understanding |
 | Whisper | Speech-to-text |
 | Text-to-Speech | AI voice response |
-| Email / SMTP | Appointment confirmation |
+| Email / SMTP | Email confirmation |
 | Google Cloud Run | Cloud deployment |
+| Docker | Containerization |
 | GitHub | Source-code management |
 
 ---
 
-# 📁 Suggested Project Structure
+# 📁 Project Structure
 
 ```text
 voice-appointment-chatbot/
 │
-├── app.py
-├── requirements.txt
 ├── Dockerfile
 ├── README.md
-├── .gitignore
-│
-├── services/
-│   ├── speech_to_text.py
-│   ├── ai_understanding.py
-│   ├── appointment_service.py
-│   ├── email_service.py
-│   ├── voice_reply.py
-│   └── reminder_service.py
-│
-├── data/
-│   └── appointments.json
-│
-└── screenshots/
-    ├── voice-input.png
-    ├── ai-understanding.png
-    ├── appointment-status.png
-    ├── ai-voice-reply.png
-    └── appointments-list.png
+├── app.py
+├── app_source.py
+└── requirements.txt
 ```
-
-> Adjust the filenames above to match the actual files in your repository.
 
 ---
 
-# 🔐 Environment Variables
+# 🔐 Environment Variables & Security
 
 Never commit API keys, passwords, or email credentials to GitHub.
 
@@ -474,9 +617,9 @@ EMAIL_ADDRESS=your_email@gmail.com
 EMAIL_PASSWORD=your_email_app_password
 ```
 
-Add secrets through the deployment environment rather than hard-coding them in Python.
+Use environment variables or Google Cloud secrets for sensitive information.
 
-Example `.gitignore`:
+Recommended `.gitignore`:
 
 ```gitignore
 .env
@@ -488,38 +631,12 @@ venv/
 
 ---
 
-# ☁️ Google Cloud Run Deployment
-
-The application can be containerized and deployed to Google Cloud Run.
-
-General deployment flow:
-
-```text
-Local Application
-       ↓
-Dockerfile
-       ↓
-Container Image
-       ↓
-Google Cloud
-       ↓
-Cloud Run
-       ↓
-Public HTTPS URL
-```
-
-The deployed application is available at:
-
-**https://voice-appointment-chatbot-6zrnqgkk7q-el.a.run.app**
-
----
-
 # ▶️ Run Locally
 
 ## 1. Clone the repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/sugumarranganathan/voice-appointment-chatbot.git
 cd voice-appointment-chatbot
 ```
 
@@ -549,7 +666,7 @@ pip install -r requirements.txt
 
 ## 4. Configure environment variables
 
-Create a `.env` file:
+Create a `.env` file if the application expects environment variables:
 
 ```env
 GROQ_API_KEY=your_groq_api_key
@@ -563,69 +680,116 @@ EMAIL_PASSWORD=your_email_app_password
 python app.py
 ```
 
-Then open the local Gradio URL displayed in the terminal.
+Open the local Gradio URL shown by the application.
 
 ---
 
-# 🔒 Security Considerations
+# 🧪 Example End-to-End Interaction
 
-- Store API keys in environment variables or Google Cloud Secret Manager.
-- Do not commit `.env` files.
-- Do not expose email passwords in source code.
-- Validate user-provided appointment information.
-- Validate email addresses before sending confirmation messages.
-- Restrict appointment IDs and operations to valid records.
-- Use HTTPS in production.
+### User says:
+
+> "Book an appointment for Anusha tomorrow at 5 PM."
+
+### Step 1 — Transcription
+
+```text
+Book an appointment for Anusha tomorrow at 5 PM.
+```
+
+### Step 2 — AI Understanding
+
+```json
+{
+  "intent": "book",
+  "appointment_id": "",
+  "name": "Anusha",
+  "appointment_date": "04-09-2026",
+  "appointment_time": "17:00",
+  "purpose": "",
+  "email": ""
+}
+```
+
+### Step 3 — Validation
+
+```text
+Intent       → Valid
+Name         → Valid
+Date         → Valid
+Time         → Valid
+Email        → Required if confirmation is needed
+```
+
+### Step 4 — Complete Booking
+
+If the email was missing, the user can enter it in the **Complete Appointment Details** section.
+
+### Step 5 — Confirmation
+
+The appointment is displayed in the appointment list and the system can provide an email confirmation and AI voice response.
 
 ---
 
 # 🎯 Benefits
 
-### For Users
+## For Users
 
 - Hands-free appointment scheduling
 - Natural-language interaction
-- Faster booking workflow
+- Faster booking
 - Voice confirmation
 - Email confirmation
-- Appointment reminders
-- Easy cancellation and rescheduling
+- Easy cancellation
+- Easy rescheduling
+- Appointment listing
+- Reminder support
 
-### For Businesses
+## For Businesses
 
 - Reduces manual scheduling work
-- Provides a conversational interface
-- Automates appointment communication
-- Improves user experience
-- Can be deployed as a cloud-based application
+- Automates repetitive appointment operations
+- Improves customer experience
+- Provides conversational AI interaction
+- Can be deployed as a cloud application
+- Provides a foundation for future calendar and notification integrations
 
 ---
 
 # 🔮 Future Enhancements
 
-Possible future improvements include:
+Possible improvements include:
 
 - 👤 User authentication
 - 🗄️ PostgreSQL / Cloud SQL database
 - 📅 Google Calendar integration
-- 📱 SMS / WhatsApp reminders
+- 📱 SMS / WhatsApp notifications
 - 🔐 Role-based access
 - 🌍 Multi-language voice support
 - 📊 Admin dashboard
 - 📈 Appointment analytics
 - 🔄 Recurring appointments
 - 🏢 Multiple staff calendars
-- 🧑‍💼 Business-specific working hours
-- 🚫 Automatic conflict detection
-- 🧠 More advanced conversational memory
+- 🧑‍💼 Business working hours
+- 🚫 Appointment conflict detection
+- 🧠 Conversational memory
+- 🔄 CI/CD deployment using GitHub Actions
 
 ---
 
 # 📸 Screenshots
 
-Add the project screenshots to a `screenshots/` directory and reference them here.
+Recommended repository structure:
 
-Example:
+```text
+screenshots/
+├── voice-input.png
+├── ai-understanding.png
+├── appointment-status.png
+├── ai-voice-reply.png
+└── appointments-list.png
+```
+
+Then add:
 
 ```markdown
 ## Voice Appointment
@@ -653,33 +817,52 @@ Example:
 
 # 📌 Project Highlights
 
-This project demonstrates an end-to-end **AI + Voice + Cloud** application:
+This project demonstrates an end-to-end **AI + Voice + Automation + Cloud** application.
 
 ```text
-Voice
-  ↓
-Speech-to-Text
-  ↓
-LLM
-  ↓
-Intent Detection
-  ↓
-Structured JSON
-  ↓
-Validation
-  ↓
-Appointment Management
-  ↓
-Email Confirmation
-  ↓
-Voice Response
-  ↓
-Reminder
-  ↓
-Cloud Deployment
+🎙️ Voice
+   ↓
+📝 Speech-to-Text
+   ↓
+🧠 Generative AI
+   ↓
+🎯 Intent Detection
+   ↓
+📋 Structured JSON
+   ↓
+✅ Validation
+   ↓
+📅 Appointment Management
+   ↓
+📧 Email Confirmation
+   ↓
+🔊 Voice Response
+   ↓
+⏰ Reminder
+   ↓
+🐙 GitHub
+   ↓
+🐳 Docker
+   ↓
+☁️ Google Cloud Run
+   ↓
+🌐 Live Application
 ```
 
-It combines **Generative AI, speech processing, structured data extraction, application logic, email automation, and cloud deployment** into a practical real-world appointment scheduling solution.
+The project demonstrates practical implementation of:
+
+- Generative AI
+- Large Language Models
+- Speech-to-Text
+- Natural-language understanding
+- Structured JSON extraction
+- Validation
+- Appointment automation
+- Email communication
+- Voice response
+- Docker containerization
+- GitHub source-code management
+- Google Cloud deployment
 
 ---
 
