@@ -1,4 +1,4 @@
-# 🎙️ Voice Appointment Chatbot
+# 🎙️ Voice Appointment Chatbott
 
 ## AI-Powered Appointment Scheduling System
 
