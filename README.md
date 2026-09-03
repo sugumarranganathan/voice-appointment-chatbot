@@ -9,7 +9,7 @@ The system converts speech into text, understands the request using an LLM, extr
 ### 🌐 Live Demo
 
 **Google Cloud Run:**  
-https://voice-appointment-chatbot-6zrnqgkk7q-el.a.run.app
+https://voice-appointment-chatbot-reminder-498371403633.asia-south1.run.app/
 
 ### 📦 GitHub Repository
 
