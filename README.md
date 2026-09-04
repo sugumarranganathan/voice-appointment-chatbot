@@ -88,7 +88,7 @@ In the user interface, these are presented as:
 
 ---
 
-# ✨ Key Features
+#  Key Features
 
 ## 🎙️ 1. Voice Input
 
