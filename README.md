@@ -2,6 +2,8 @@
 
 ## AI-Powered Voice Appointment Scheduling System
 
+## Python • Gradio • Groq • Whisper • GPT-OSS-20B • Orpheus TTS • JSON Schema • SMTP • Docker • Google Cloud Run • Artifact Registry • Cloud Build • GitHub
+
 A voice-enabled AI appointment scheduling application that allows users to manage appointments using natural-language voice commands.
 
 The system converts speech into text, understands the request using an LLM, extracts structured appointment information, validates the request, performs the appointment operation, provides an AI voice response, and supports email confirmation and appointment reminders.
